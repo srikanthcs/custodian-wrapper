@@ -12,7 +12,7 @@ from c7n.config import Config
 from c7n.structure import StructureParser
 from c7n.resources import load_resources
 from c7n.policy import PolicyCollection
-from c7n.utils import format_event, get_account_id_from_sts, local_session
+from c7n.utils import format_event, get_account_id_from_sts, local_session, CONN_CACHE
 
 import boto3
 
@@ -40,18 +40,6 @@ C7N_DEBUG_EVENT = True
 # automatically retry.
 # Set with `export C7N_CATCH_ERR=yes`
 C7N_CATCH_ERR = False
-
-
-##########################################
-#
-# Internal global variables
-#
-
-# config.json policy data dict
-policy_data = None
-
-# execution options for the policy
-policy_config = None
 
 
 def init_env_globals():
@@ -143,7 +131,11 @@ def dispatch_event(event, context):
         return
 
     # one time initialization for cold starts.
-    global policy_config, policy_data
+    global CONN_CACHE
+    CONN_CACHE = None
+    policy_data = None
+    policy_config = None
+
     if policy_config is None:
         with open('config.json') as f:
             policy_data = json.load(f)
