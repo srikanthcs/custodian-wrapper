@@ -2,7 +2,7 @@
 from c7n.resources.ec2 import actions as ec2_actions
 from c7n.resources.elb import actions as elb_actions
 
-from custodian_v2.custom_actions.log2clp import Log2Clp
+from .custom_actions.log2clp import Log2Clp
 
 resource_actions = (ec2_actions, elb_actions)
 
