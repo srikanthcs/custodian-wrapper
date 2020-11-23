@@ -190,8 +190,3 @@ class Log2Clp(EventAction):
         self.log.info([prep_prop])
         return utils.dumps([prep_prop])
 
-    @classmethod
-    def register_resources(klass, registry, resource_class):
-        if not resource_class.action_registry.get('log2clp_v3'):
-            return
-        resource_class.action_registry.register('log2clp_v3', klass)
