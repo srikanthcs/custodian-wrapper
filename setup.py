@@ -4,7 +4,7 @@
 from setuptools import setup
 
 packages = \
-['custodian_v2']
+['custodian_v2', 'custodian_v2.custom_actions']
 
 package_data = \
 {'': ['*']}
